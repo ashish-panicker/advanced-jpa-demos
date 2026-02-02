@@ -45,6 +45,10 @@ When using `@MappedSuperclass`
 
 **All child classess must be Entity classes**
 
+**Each Entity class needs an identifier**
+
+Id can be declared in the root and the child classes with inherit it.
+
 **Inheritance Stratergy must be declared in the root**
 
 Use `@Inheritance` annotation to mark Entity inheritance.
@@ -54,5 +58,22 @@ Use `@Inheritance` annotation to mark Entity inheritance.
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Vehicle {
     
+}
+```
+
+**Use Discriminator Columns and Values in SINGLE_TABLE startergy**
+
+`@DiscriminatorColumn` is applied in the base class.
+`@DiscriminatorValue` is applied in child classes.
+
+```java
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "v_type", discriminatorType = DiscriminatorType.STRING)
+public class Vehicle {}
+
+@Entity
+@DiscriminatorValue("BIKE")
+public class Bike extends Vehicle {
 }
 ```
